@@ -1,21 +1,23 @@
-const DNA_MAP = {
+DNA_MAP = {
   G: 'C',
   C: 'G',
   T: 'A',
   A: 'U',
 }
 
-const DnaTranscriber = function() { };
+var DnaTranscriber = function() {};
 
 DnaTranscriber.prototype.toRna = function(target) {
-  const result = target.split('').map(function(char) {
-    const found = DNA_MAP[char]
-    if (!found) { throw new Error('Invalid input') }
-
-    return found
-  })
-
-  return result.join('')
+  var result = []
+  for(i = 0; i < target.length; i++) {
+    var char = target[i];
+    var standardChar = DNA_MAP[char]
+    if (!standardChar) {
+      throw new Error('Invalid input')
+    }
+    result.push(standardChar);
+  }
+  return result.join('');
 }
 
 module.exports = DnaTranscriber;
