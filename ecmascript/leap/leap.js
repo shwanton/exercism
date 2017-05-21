@@ -12,7 +12,9 @@ class Leap {
   }
 
   equallyDivisibleBy(year) {
-    return check => year % check === 0;
+    return (...checks) => {
+      return checks.every(check => year % check === 0);
+    }
   }
 }
 
