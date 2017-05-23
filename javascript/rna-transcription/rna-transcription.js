@@ -1,4 +1,4 @@
-DNA_MAP = {
+var DNA_MAP = {
   G: 'C',
   C: 'G',
   T: 'A',
