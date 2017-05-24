@@ -1,5 +1,5 @@
-function equallyDivisibleBy(year: number) {
-  return (test: number): boolean => (year % test === 0)
+function equallyDivisibleBy(year: number): boolean {
+  return (test: number): boolean => year % test === 0
 }
 
 export default (year: number): boolean => {
