@@ -1,16 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 
 public static class ReverseString
 {
     public static string Reverse(string input)
     {
-        var result = "";
-        for (int i = 0; i < input.Length; i++)
-        {
-            var index = i + 1;
-            result += input[input.Length - index];
-        }
-
-        return result;
+        char[] charArray = input.ToCharArray();
+        return new string(charArray.Reverse().ToArray());
     }
 }
