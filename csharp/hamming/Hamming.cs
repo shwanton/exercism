@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 public static class Hamming
 {
@@ -9,15 +10,11 @@ public static class Hamming
             throw new ArgumentException();
         }
 
-        var count = 0;
-        for (int i = 0; i < firstStrand.Length; i++)
-        {
-            if (secondStrand[i] != firstStrand[i])
-            {
-                count++;
-            }
-        }
+        return firstStrand.Where(CharactersAtIndexAreDifferent(secondStrand)).Count();
+    }
 
-        return count;
+    private static Func<char, int, bool> CharactersAtIndexAreDifferent(string strand)
+    {
+        return (char letter, int index) => letter != strand[index];
     }
 }
