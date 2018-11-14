@@ -7,20 +7,15 @@ public static class SumOfMultiples
 {
     public static int Sum(IEnumerable<int> multiples, int max)
     {
-        HashSet<int> results = new HashSet<int>();
+        return Enumerable
+            .Range(0, max)
+            .Where(IsMultiple(multiples))
+            .Sum();
+    }
 
-        foreach (var multiple in multiples.Where(n => n > 0))
-        {
-            foreach (var num in Range(1, max - 1))
-            {
-                if (num > 0 && num % multiple == 0)
-                {
-                    results.Add(num);
-                }
-            }
-        }
-
-        return results.Count == 0 ? 0 : results.Aggregate((sum, value) => sum + value);
+    private static Func<int, bool> IsMultiple(IEnumerable<int> multiples)
+    {
+        return n => multiples.Where(m => m > 0).Any(m => n % m == 0);
     }
 }
 
