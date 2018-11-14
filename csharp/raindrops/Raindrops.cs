@@ -1,31 +1,23 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using static System.Linq.Enumerable;
 
 public static class Raindrops
 {
-    private static Dictionary<int, string> _factors = new Dictionary<int, string>()
+    private static readonly (int factor, string label)[] _factors =
     {
-        { 3, "Pling" },
-        { 5, "Plang" },
-        { 7, "Plong" }
+        ( factor: 3, label: "Pling" ),
+        ( factor: 5, label: "Plang" ),
+        ( factor: 7, label: "Plong" )
     };
 
-public static string Convert(int number)
+    public static string Convert(int number)
     {
-        return _factors.Aggregate("", (acc, factor) =>
-        {
-            if (number > 1 && number % factor.Key == 0)
-            {
-                acc = acc + factor.Value;
-            }
+        var result = _factors
+            .Where(f => number % f.factor == 0)
+            .Select(f => f.label)
+            .DefaultIfEmpty(number.ToString());
 
-            if (_factors.Keys.Last() == factor.Key && String.IsNullOrEmpty(acc))
-            {
-                acc = number.ToString();
-            }
-            return  acc;
-        });
+        return String.Concat(result);
     }
 }
