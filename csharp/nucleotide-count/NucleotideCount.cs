@@ -1,17 +1,30 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public static class NucleotideCount
 {
-    private static readonly string strands = "ACGT";
+    private static readonly IDictionary<char, int> Nucleotide = new Dictionary<char, int>()
+    {
+        ['A'] = 0,
+        ['C'] = 0,
+        ['G'] = 0,
+        ['T'] = 0
+    };
 
     public static IDictionary<char, int> Count(string sequence)
     {
-        if (!sequence.All(strands.Contains)) throw new ArgumentException();
+        var result = new Dictionary<char, int>(Nucleotide);
 
-        return (sequence + strands)
-            .GroupBy(k => k)
-            .ToDictionary(g => g.Key, g => g.Count() - 1);
+        foreach (char c in sequence)
+        {
+            if (!Nucleotide.ContainsKey(c))
+            {
+                throw new ArgumentException("Invalid Nucleotide character");
+            }
+
+            result[c]++;
+        }
+
+        return result;
     }
 }
