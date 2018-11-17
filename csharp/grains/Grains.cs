@@ -5,25 +5,20 @@ public static class Grains
 {
     public static ulong Square(int n)
     {
-        if (n < 1) throw new ArgumentOutOfRangeException();
+        if (n < 1 || n > 64) throw new ArgumentOutOfRangeException();
 
-        Console.WriteLine($"number: {n}");
+        return Convert.ToUInt64(Math.Pow(2, n - 1));
 
-        int result = 0;
-
-        for (int i = 1; i < n; i++)
-        {
-            Console.WriteLine($"before: {n}, {result}");
-            result += (i * 2) + result;
-            Console.WriteLine($"after: {n}, {result}");
-
-        }
-
-        return result > 0 ? Convert.ToUInt64(result) : 1;
     }
 
     public static ulong Total()
     {
-        return Square(64);
+        ulong total = 0;
+        for (int i = 1; i <= 64; i++)
+        {
+            total += Square(i);
+        }
+
+        return total;
     }
 }
