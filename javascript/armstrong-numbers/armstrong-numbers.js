@@ -1,11 +1,6 @@
-const validate = num => {
-  const str = `${num}`;
-  const result = str
-    .split("")
-    .map(n => Math.pow(n, str.length))
-    .reduce((acc, val) => acc + val);
+const reducer = (acc, val, _idx, arr) => acc + Math.pow(val, arr.length);
 
-  return result === num;
+export const validate = num => {
+  const arr = [...`${num}`];
+  return arr.reduce(reducer, 0) === num;
 };
-
-module.exports = { validate };
