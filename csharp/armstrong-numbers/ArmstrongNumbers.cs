@@ -6,17 +6,11 @@ public static class ArmstrongNumbers
     public static bool IsArmstrongNumber(int number)
     {
         var str = number.ToString();
-        var result = 0;
+        var result = str
+            .Select(a => int.Parse(a.ToString()))
+            .Select(b => Math.Pow(b, str.Length))
+            .Sum();
 
-        foreach (var num in str)
-        {
-            int test = Convert.ToInt16(num);
-            result = test * str.Length;
-            Console.WriteLine($"num: {test}, result: {str.Length}");
-        }
-
-        Console.WriteLine($"num: {number}, result: {result}");
-
-        return result == number;
+        return Convert.ToInt32(result) == number;
     }
 }
