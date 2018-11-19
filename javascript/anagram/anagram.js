@@ -1,20 +1,27 @@
 class Anagram {
   constructor(word) {
     this.word = word;
+
+    this.isAnagram = this.isAnagram.bind(this);
   }
 
-  matches(list) {
-    return list.reduce((acc, val, idx, arr) => {
-      if (val.length !== this.word.length) return acc;
-      if (/^[^a-z]*$/.test(val)) return acc;
+  sortChars(word) {
+    return word
+      .toLowerCase()
+      .split("")
+      .sort()
+      .join("");
+  }
 
-      const contains = [...this.word.toLowerCase()].every(letter => {
-        return val.toLowerCase().includes(letter);
-      });
+  isAnagram(candidate) {
+    return (
+      this.sortChars(this.word) === this.sortChars(candidate) &&
+      this.word.toLowerCase() !== candidate.toLowerCase()
+    );
+  }
 
-      acc = contains ? acc.concat(val) : acc;
-      return acc;
-    }, []);
+  matches(candidates) {
+    return candidates.filter(this.isAnagram);
   }
 }
 
