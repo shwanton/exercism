@@ -4,17 +4,39 @@ public static class CollatzConjecture
 {
     public static int Steps(int number)
     {
-        if (number < 1) throw new ArgumentException();
+        if (number <= 0) throw new ArgumentException();
 
-        var result = 0;
+        var steps = 0;
 
-        while (number > 1)
+        Calculate(number, ref steps);
+
+        return steps;
+    }
+
+    public static void Calculate(int number, ref int steps)
+    {
+        if (number == 1)
         {
-            result++;
-
-            number = number % 2 == 0 ? number / 2 : number * 3 + 1;
+            return;
         }
 
-        return result;
+        steps++;
+
+        if(number.IsEven())
+        {
+            Calculate(number / 2, ref steps);
+        }
+        else
+        {
+            Calculate(number * 3 + 1, ref steps);
+        }
+    }
+}
+
+public static class IntExtenstions
+{
+    public static bool IsEven(this int number)
+    {
+        return number % 2 == 0;
     }
 }
