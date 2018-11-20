@@ -6,30 +6,14 @@ public static class CollatzConjecture
     {
         if (number <= 0) throw new ArgumentException();
 
-        var steps = 0;
-
-        Calculate(number, ref steps);
-
-        return steps;
+        return Calculate(number);
     }
 
-    public static void Calculate(int number, ref int steps)
+    public static int Calculate(int number, int steps = 0)
     {
-        if (number == 1)
-        {
-            return;
-        }
+        if (number == 1) return steps;
 
-        steps++;
-
-        if(number.IsEven())
-        {
-            Calculate(number / 2, ref steps);
-        }
-        else
-        {
-            Calculate(number * 3 + 1, ref steps);
-        }
+        return Calculate(number.IsEven() ? number / 2 : number * 3 + 1, steps += 1);
     }
 }
 
