@@ -1,17 +1,29 @@
 using System;
 
-public class Clock
+public class Clock : IEquatable<Clock>
 {
+    private int _totalMinutes;
+
     public Clock(int hours, int minutes)
     {
-        throw new NotImplementedException("You need to implement this function.");
+        _totalMinutes = minutes + (hours * 60);
     }
+
+    public Clock Add(int minutesToAdd) => new Clock(Hours, Minutes + minutesToAdd);
+
+    public Clock Subtract(int minutesToSubtract) => Add(-minutesToSubtract);
 
     public int Hours
     {
         get
         {
-            throw new NotImplementedException("You need to implement this function.");
+            if (_totalMinutes < 0)
+            {
+                int hours = 24 + ((_totalMinutes / 60) % -24);
+                return Minutes == 0 ? hours : hours - 1;
+            }
+
+            return ((_totalMinutes / 60) % 24);
         }
     }
 
@@ -19,22 +31,19 @@ public class Clock
     {
         get
         {
-            throw new NotImplementedException("You need to implement this function.");
+            if (_totalMinutes < 0)
+            {
+                return(60 + (_totalMinutes % -60)) % 60;
+            }
+
+            return _totalMinutes % 60;
         }
     }
 
-    public Clock Add(int minutesToAdd)
-    {
-        throw new NotImplementedException("You need to implement this function.");
-    }
+    public override string ToString() => $"{Hours:D2}:{Minutes:D2}";
 
-    public Clock Subtract(int minutesToSubtract)
+    public bool Equals(Clock clock)
     {
-        throw new NotImplementedException("You need to implement this function.");
-    }
-
-    public override string ToString()
-    {
-        throw new NotImplementedException("You need to implement this function.");
+        return this.ToString() == clock.ToString();
     }
 }
