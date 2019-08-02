@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 
 main() {
-	echo "Hello, ${1:-World}!"
+  echo "Hello, ${1:-World}!"
 }
 
 main "$@"
